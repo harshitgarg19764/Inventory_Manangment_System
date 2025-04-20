@@ -1,0 +1,327 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stockaly-Login Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        .login-container {
+            max-width: 60vw; 
+            min-height: 55vh;
+            margin: 20px auto; 
+        }
+
+        #box {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            padding: 15px; 
+            border-radius: 10px;
+        }
+
+        .navbar {
+            padding: 1rem 2rem;
+        }
+
+        footer {
+            padding: 60px 0px 20px; 
+            text-align: center;
+        }
+
+        .form-control, .form-select {
+            padding: 8px 12px; 
+            margin-bottom: 10px; 
+        }
+
+        .brand-logo {
+            max-width: 100px; 
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem; 
+        }
+
+        p {
+            margin-bottom: 0.5rem; 
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem !important; 
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem !important;
+        }
+
+        .sso-button {
+            width: 100%;
+            margin: 6px 0; 
+            padding: 8px; 
+            border-radius: 5px;
+            border: none;
+            color: white;
+            text-align: left;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .icon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px; 
+        }
+
+        .icon-button {
+            width: 35px; 
+            height: 35px; 
+            border-radius: 50%;
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .more-options {
+            width: 35px;
+            height: 35px; 
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-item {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .carousel-item img {
+            height: 280px; 
+            width: 280px; 
+        }
+
+        /* Button styles remain the same */
+        .apple-btn { background-color: #000; }
+        .google-btn { background-color: #4285f4; }
+        .yahoo-btn { background-color: #6001d2; }
+        .facebook-btn { background-color: #1877f2; }
+        .linkedin-btn { background-color: #0a66c2; }
+        .twitter-btn { background-color: #1da1f2; }
+        .microsoft-btn { background-color: #333; }
+        .slack-btn { background-color: #4a154b; }
+        .github-btn { background-color: #24292e; }
+
+        .carousel-container {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-button {
+            color: #666;
+            cursor: pointer;
+            padding: 8px; 
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-button:hover {
+            color: #333;
+        }
+
+        .icon-grid a {
+            text-decoration: none;
+            background: white;
+        }
+        @media (max-width: 768px) {
+                    .nav-links {
+                        display: none;
+                    }
+        
+                    .menu-toggle {
+                        display: block;
+                    }
+        
+                    .menu-toggle.active + .nav-links {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        padding: 1rem;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+        
+                    .hero-image img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div class="login-container">
+        <div class="row">
+            <div class="col-md-6" id="box">
+                <form method="post" class="row g-2">
+                    <img src="../static/images/stockaly_logo-removebg-preview.png" alt="Logo" class="brand-logo"  height="70px" width="25px" >
+                    <h2 class="mb-2">Sign in</h2>
+                    <p class="text-muted mb-3">to access Dashboard</p>
+
+                    <div class="mb-2">
+                        <input type="text" class="form-control" name="email" placeholder="Email address or mobile number">
+                    </div>
+                    <div class="mb-2">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="mb-2">
+                        <select class="form-select fs-6" id="role" name="role">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary w-100 mb-3">Next</button>
+
+                    <div class="initial-buttons">
+                        <p class="text-muted mb-2">Sign in with</p>
+                        <div class="icon-grid">
+                            <button class="icon-button apple-btn">
+                                <i class="fab fa-apple"></i>
+                            </button>
+                            <button class="icon-button google-btn">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="icon-button facebook-btn">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button class="icon-button linkedin-btn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                            <button class="icon-button twitter-btn">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="icon-button microsoft-btn">
+                                <i class="fab fa-microsoft"></i>
+                            </button>
+                            <button class="more-options" id="toggleMore">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Additional buttons section -->
+                    <div class="additional-buttons hidden" id="additionalButtons">
+                        <div class="back-button mb-2" id="toggleLess">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </div>
+                        <button class="sso-button apple-btn">
+                            <i class="fab fa-apple me-2"></i> Sign in with Apple
+                        </button>
+                        <button class="sso-button google-btn">
+                            <i class="fab fa-google me-2"></i> Sign in with Google
+                        </button>
+                        <button class="sso-button yahoo-btn">
+                            <i class="fab fa-yahoo me-2"></i> Sign in with Yahoo
+                        </button>
+                        <button class="sso-button facebook-btn">
+                            <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                        </button>
+                        <button class="sso-button linkedin-btn">
+                            <i class="fab fa-linkedin-in me-2"></i> Sign in with LinkedIn
+                        </button>
+                        <button class="sso-button twitter-btn">
+                            <i class="fab fa-twitter me-2"></i> Sign in with Twitter
+                        </button>
+                        <button class="sso-button microsoft-btn">
+                            <i class="fab fa-microsoft me-2"></i> Sign in with Microsoft
+                        </button>
+                        <button class="sso-button slack-btn">
+                            <i class="fab fa-slack me-2"></i> Sign in with Slack
+                        </button>
+                        <button class="sso-button github-btn">
+                            <i class="fab fa-github me-2"></i> Sign in with GitHub
+                        </button>
+                    </div>
+
+                    <p class="mt-3 text-center">
+                        Don't have an account? <a href="{{url_for('registerFunction')}}" class="text-decoration-none">Sign up now</a>
+                    </p>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <div id="loginCarousel" class="carousel slide carousel-container" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://static.zohocdn.com/iam/v2/components/images/MFA_illustration.1afa6dddd07d21ad33a652ec63d146d6.svg"
+                                class="d-block w-100" alt="Security">
+                            <div>
+                                <h5>MFA for all accounts</h5>
+                                <p>Secure online accounts with OneAuth 2FA. <br> Back up OTP secrets and never lose
+                                    access to your accounts.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://static.zohocdn.com/iam/v2/components/images/Passwordless_illustration.5c0b2b6048ba19d2dec9f1fba38291c9.svg"
+                                class="d-block w-100" alt="Passwordless">
+                            <div>
+                                <h5>Passwordless Sign-in</h5>
+                                <p>Experience one-tap access with enhanced security</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('toggleMore').addEventListener('click', function () {
+            document.querySelector('.initial-buttons').classList.add('hidden');
+            document.getElementById('additionalButtons').classList.remove('hidden');
+        });
+
+        document.getElementById('toggleLess').addEventListener('click', function () {
+            document.querySelector('.initial-buttons').classList.remove('hidden');
+            document.getElementById('additionalButtons').classList.add('hidden');
+        });
+    </script>
+    <script>
+        // Menu Toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });    
+        document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+        });
+        </script>
+</body>
+
+</html>
+{% endblock %}
