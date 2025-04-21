@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventTrack - Inventory Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/final.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+               
+                <h1 class="hero-title">Stockaly Your <span>Inventory Management</span></h1>
+                <p class="hero-subtitle">Track, manage, and optimize your inventory with our powerful and easy-to-use platform.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('registerFunction' ) }}" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="../static/images/thumbnail for an inventory management site named stockaly.jpg" alt="Dashboard Preview" class="dashboard-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-subtitle">Our inventory management system comes packed with features designed to streamline your operations and boost efficiency.</p>
+            
+            
+            <div class="features-grid" style="margin: auto;">
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Real-time Tracking</h3>
+                    <p class="feature-desc">Monitor your inventory levels in real-time with accurate tracking and instant updates.</p>
+                </div>
+                
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                    <h3 class="feature-title">Barcode Integration</h3>
+                    <p class="feature-desc">Easily scan and manage products with our seamless barcode integration system.</p>
+                </div>
+                
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="feature-title">Low Stock Alerts</h3>
+                    <p class="feature-desc">Never run out of stock with customizable alerts when inventory reaches critical levels.</p>
+                </div>
+                
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="feature-title">Supplier Management</h3>
+                    <p class="feature-desc">Manage all your supplier relationships in one place with detailed records and history.</p>
+                </div>
+                
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile Access</h3>
+                    <p class="feature-desc">Access your inventory from anywhere with our powerful mobile application.</p>
+                </div>
+                
+                <div class="feature-card animated-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <h3 class="feature-title">Reports & Analytics</h3>
+                    <p class="feature-desc">Generate comprehensive reports and gain valuable insights into your inventory performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="analytics" id="analytics">
+        <h2 class="section-title">Real-Time Analytics</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Revenue Generated</h3>
+                <div class="metric-value">$124,500</div>
+                <div class="growth-indicator positive">+15%</div>
+                <div class="metric-chart">
+                    <div class="bar-chart">
+                        <div class="bar" style="--height: 60%"></div>
+                        <div class="bar" style="--height: 80%"></div>
+                        <div class="bar" style="--height: 40%"></div>
+                        <div class="bar" style="--height: 90%"></div>
+                        <div class="bar" style="--height: 70%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Stock Sold</h3>
+                <div class="metric-value">2,450</div>
+                <div class="growth-indicator positive">+8%</div>
+                <div class="metric-chart">
+                    <div class="line-chart">
+                        <div class="line"></div>
+                        <div class="dots">
+                            <div class="dot" style="--x: 0; --y: 60%"></div>
+                            <div class="dot" style="--x: 25%; --y: 40%"></div>
+                            <div class="dot" style="--x: 50%; --y: 80%"></div>
+                            <div class="dot" style="--x: 75%; --y: 50%"></div>
+                            <div class="dot" style="--x: 100%; --y: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Monthly Growth</h3>
+                <div class="metric-value">18.5%</div>
+                <div class="growth-indicator positive">+5%</div>
+                <div class="metric-chart">
+                    <div class="circle-progress">
+                        <div class="circle-inner">18.5%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Total Orders</h3>
+                <div class="metric-value">3,742</div>
+                <div class="growth-indicator positive">+12%</div>
+                <div class="metric-chart">
+                    <div class="wave-chart">
+                        <div class="wave"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Pricing -->
+</div>
+<!-- Analytics Dashboard Section -->
+<section id="analytics" class="analytics" style="padding: 100px 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">Powerful Analytics Dashboard</h2>
+<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+    Make data-driven decisions with our comprehensive analytics tools and visual reports.
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px;">
+    <div class="analytics-card" data-aos="fade-up" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <img src="https://th.bing.com/th/id/R.937c69d94ed1fc02ccb46d3993d3dea9?rik=B9n6UNEwWqsoRw&riu=http%3a%2f%2fwww.sdgyoungleaders.org%2fwp-content%2fuploads%2f2020%2f07%2fload-image-2020-07-23T024956.542.jpeg&ehk=A4UHbhi4OTYOm7wK1n4M5Np4oPJcbQp59XW9v2%2bgBms%3d&risl=&pid=ImgRaw&r=0" alt="Sales Analytics" style="width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: var(--dark);">Sales Trends</h3>
+        <p style="color: #666;">Track your sales performance with interactive charts and predictive analytics.</p>
+    </div>
+    
+    <div class="analytics-card" data-aos="fade-up" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <img src="https://img.freepik.com/premium-photo/smart-warehouse-inventory-management-system-concept-manager-using-digital-tablet-showing-warehouse-software-management-dashboard-blurred-warehouse-as-background_114016-20887.jpg" alt="Inventory Analytics" style="width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: var(--dark);">Inventory Insights</h3>
+        <p style="color: #666;">Monitor stock levels, turnover rates, and optimize your inventory in real-time.</p>
+    </div>
+    
+    <div class="analytics-card" data-aos="fade-up" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <img src="https://th.bing.com/th/id/OIP.Ny8qhSR6OPaNDbICYoZ27QHaD8?rs=1&pid=ImgDetMain" alt="Performance Metrics" style="width: 100%; border-radius: 8px; margin-bottom: 20px;height: 60%;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: var(--dark);">Performance Metrics</h3>
+        <p style="color: #666;">Get detailed insights into your business performance with customizable KPI dashboards.</p>
+    </div>
+</div>
+</div>
+</section>
+
+<!-- Partner Integrations Section -->
+<section id="integrations" class="integrations" style="padding: 100px 0; background: white;             box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">Seamless Integrations</h2>
+<p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+    Connect with your favorite tools and platforms for a streamlined workflow.
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 50px;            box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+    <div class="integration-card" data-aos="zoom-in" data-aos-delay="200" style="            box-shadow: 0 5px 15px rgba(0,0,0,0.05);text-align: center; padding: 30px; transition: transform 0.3s;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAA/FBMVEX///8AAAD+/v4toB38/Pz//f9LS0ukpKQvnx9gYGA4ODiVlZXz8/MsoRyPj4+zs7PX19fp6en8//u4uLhYWFhFRUX/+v+n2p8QlwB8vnbi4uKenp5sbGzKysrb29v19fXBwcGGhoZvb28hISEynSSSkpLQ0NANDQ1AQECWw44nJycyMjJQUFB5eXkclQD5//cYGBgmphReslXz/+/S8cyw26mczpSKxIG01q6Hu35EmjU0lidvt2a64LRPn0YkjRTh998UpgCb2pAxkCV7vm9vrmjt/+nH4sNQr0ScxJiLy4Da8dZnuF6RxYtep1Ph8d+61raNvYrg/dy75rUwq6ZTAAAMLklEQVR4nO1cCVvbOBOWhY1NEpPgBNfN4STgQgnEwQ1HyxW626Xbjy3d3f7///LN6PAREpp2aYF23t0nVWRJll6N5rIDYwQCgUAgEAgEAoFAIBAIBMIC4Fx8CKSFewC7l8Huc0Z33IRA+O/4EYL0yKX1h5wm4uDRc/ArQlqreVd+yI6RVBAIBMKjwgy1/Mtp6p+Pg6c9ewLh+yGLgbIci8rm3NGlkIzhOX+6OAgr1rNCkii7nL/VnfmomVdujTovcXS/aaQH1olPXCUTHg0yScqpgrsbfqF+uqJ4vvPHsVBbrCgWZlzJV9zSOKkiuKNbpuvIRSBMgfQrcUAgEH5C/Hwpjq8HcUAgfCPopBAHBAKBQCAQCAQCgUAgEAj3gTTH4o0edB4PBc49z2Mefli+ZT70dB4GHGiwAMDFL/sbOM/yfUsW+S8qB7D144PDo+Pnz3deH4wfejY/FB63UAmA7B+8OYnjOHCDJIhPz85Hlo/qYe7rO/IVn1u1T1KA8IUl3/LOLyax6y4puO7k5NnYulstdEr126Ox/qD53eb6nQBSwH1++UeQOG6ScgBIgosDZsHlfGuefgI9DWNXfhP/qUtdw1h91K9+zXxIC/J+fvrWPYV1O07GQRQtxTsjxjMOUMxNnr4Lx2p7PTGkfNMOTwFestuVR/D+2zzLxmdx4FmW9yF29BEQn/jhQNmJ34zyywnDClurVcyeDeLeDJtrzTDka+Ea3DAMTd4MK2YYNqHy4U/DfA5mwLP4b7ELAuAKDpxoyfkdGUA+HDd+N/I9aCKFYdOos6HR2jYMowdfBMyh0YeRDWONLRvVNVnZ/m5r+y4wrfNJTg1Ervvu3+eRrnHjo9xpKBk91jeMjV7D2Gf9jZfGoN3mfXH+kYMGcLDS3jf22q0HXNA3gH+Ko0wXOk7iHvPRq0QeDmcpiT8zPvKk7yQ5WGasgktmtrEBlcgB0xxAadnYmn2jTJ/OvPC1875HleP9kbgFc7B0zNnHRGhHOBpJcnLlow+BkBzobWctIfN940UmB1BaNzpzJl1ZAxTquljzbR4FDleZGm6RbrMq38eOG+GOCw3gwrLfeWwnEUUXrrjBERhI2fW/ccBWUVUU6lpY89XrUMO9hL6Dr+9WBGg7f/QnyL8DRgBcRFg/qMTkOWMf3kZxELgOWgf39EqrBM0BK3IAn81FOCjf4sD+LxwsQ9/SN/XNwQIZv46RA1j5/65Ho9F4fHUUv2Nsx7kaXx9GbxMXHKf4tWZvJgc9w7Drg6fLgeW9QSlwgr/GFqZNQPcdxu9AH5wyCCLHH2M4DIl7A8ZRdJC2UZpCcAHKxgrWNmAuw21pG+FS6UlxAEsenaAYxGeez71Pnz5VLO9Z/Bzl4OB6zH22EztgLONLyQE6QUy4RGZY63L0jhh6jx17iykfiYvPOZN+pBxcxugOnYAMfL6Ig/jGY8/wLHxI4snF4chnf4GKcINzeRh0oJg6y3IywoVWteYdP4l7lBxwj58DB3jgvfegAV33FePPApQD/BZ/ZNZBDFYyOLoP//+xcgCnHxY7ubKufk+WihxEbjI54KMbMBbB8c/EwdQPND254ReMnwfTHKCLeMzYG/ARkj90b/AQ661WzxQDmWYaS6t/TBk7muJ/dTCa1Va5GoojozkwVf9uykGt2hJteHqjSq9Vtjvd3A++wKPq2C17y9Q/ztIcYCgLt+Jdsbatql3FNub83E+eA8tjR2D9kjPGXifO9FkAPQGlYzAN0EDpg2ZDxkQt1obPPaZ2UirBvgihYEH4b1Uupaoiq/16Tg5UybBV786++DropTMLV2Q3Y2Ptdt2wwgoccCZntQVUrKo27Sab534Wf+3qcXYEi00uhLcInsDSjeYgQecx3mHseSBIkr+pqxsaG8jBSpGD1TwHIsPUbaQdjIZaOeZb5Dhl1XsjbdNXO9zKuglzi9XlXF1PaGTJARQE+WiRu7tZm9sprplAbwAOfjIZc9QH4CrfeJqDKHLexteWdwFnBDxHMbWOUcQXOVjPNR4yxYEpG8CCTdk7B5mBKhfq6mKr+4W6Dks50IOgoLXzTRZUYRz2H7Y5PgSFECfJUqLl4CPGC6AKfbALkbYLXbVZvXp7MQ6kYK5Uqxtii7UcyBxDG5ehOFiv9loDUaox1d9Ytnu23FY8DpL+RrVjy3aVlAP0Uw08VxyjWbgRZ2Z1GwZaOBS7nGCwdDL22cFNMAk0B/9AtHDxNwTNEFQCB+99Ty93UxzQziIciCkJxcCa/VScWVeoiD3RRXLwQpTbihmxNlU3xCJIkIiPYJ1pu36qD0IlQPrGJu7XWm1RAiBeGJ2A6oviM3CHRleXr5RO5OPLy/EYBjuKXYgogysfHz+W5EZlJ/YLHMjDzszUsZIciCXuiqnKJg3pZnGxmK4Uk2Wh1002kHWhvh2MYmJ5mzMx0EspnEO0NbJVW+TxFs4ucPCQj4MIlGHw17/M99nZKwYaAr0Bjmn18T8xCImT3HimxeS9l9VfPDAX4GBDC7e6m+RAbOOmSruK3lvKwpbll7rsLn+YbMsxsnZc2Z+m5KD0MmVHzRD4GdbNhR90QMwEjiDmUJ3o9Pjz9dUrwcHZ1Rjw6fooeiuyKsEhak8Mjw0RMzJtmL7Awbr6XuRAoKeWbcttlujJKy21RIEtOZYYuqv2VpDUkRxIaA+9mta05vsH0xzA2tARRLsYxNHvieDAmcQxmMogWIpESvF0LLJIgoOyXk8jz0GXpSmSaQ6yuykOxMz3uzk50HLbmcGBGqsvh+Z5rgQHu5tSDtQQvU1NwsqCOlF0fD/BZBF4g1Higl0ADhJMnIBdAPcJOYg/4IMYpeJWdM/BtByYeqIpB438YlIOpKZsyBNrZ02UkejIzezI5xZ6z8WlMH9mQqUPQrXtGrUXSjyqC1HARhwkgZ0FESzWFel14OBZ7Kp8KjpNIAbR2B8JQTAysZd7lnJQE2soTXHwojg7rROlTXmRycEL1aAkxxfdh6puRdaJPvrx1a4SPWkXxF3SlAVufmU1t1sLwb88TTCPhM6xc/ove63kQD5uiN7GB7rlUG6g0D4DfZuqnB3TdjrHgbTz0tkNU7ugzozRY5oDtcHiDKxDUXjOMjctxtzT2i4UCtnW0q/8g710bzgTkYy0pOsYRCwY63nsPJZiD0t3bg5+U0dAyoI7+ZC2lGK3vNXtqmOHHDSl4FUqyt3JOFCG3uhVumEbhTv1E5dTclQnu9JtDhUz2nGCurVyusdldZvuWt+Qkpf6ytI6lnC1dWO3pucEnkY3XNBNGGH6LFmKMH+KwuCAc5xyAL6ierSALMtpZhDitlusy3PQzF+oqYVof87Y5eyWr9xItzHDhpC84m2GWczEpe3AKqE8SkMZW4Eg9srV3kKSAE6C92wiLQCg8OjZjd+MUw6gaeb/D3Y1B1kQUS5yULhmoLSm+YMtvTjkYJDFTCWh+nk+9EFasEtlkKtrs0L+QEeh+fBkHZzFcLleX+w0jLjPPp8moAXATYhcDKFd9fw1PmK+52ccpJKw3FX+Ac/inlpHcSBWiGrZZM09PadtrSRZ5im0pA5IQ52hqeJGnklcS/8dmG5WZ0vfUz9fMNPYeTVtsoKZB7tuVxfO/nB+eRZDYADLjgC59w+mEa4u75eGHWn8lept9kvGoF9hTRuAznoVEKoOtdXG5v76Rh13eAsvyGosVW1ekzVbw5e7K+W8GW22GvvG5opdya2hWW5sG5ttu6va1KGvjJArYjgMUeyVgbG93Bca1azUewsSgBj5/PzPIBCHIUGF4CbxyeFo7utpPOOAm2kSSROa/0zTQCLtxFiWnU3/MU2W75kv3FHit4bLz9bkOts0ZwEzHnvi+ybX/5zEAQSMCfiMJ+/Ox8yaMYK+Z04Osiu80GTWPfOr5NPN+K3S1z5YzWfexKGaPf/ZHHgjfDVrfP334c7Hj0eHB+MRn34Np4jbHDwNzOfAs3x8MSu9YFk+Bo537MJT5eD+wImDJ83Bff0NRRngNO5lsB+Lme+lfeNIVfAFFkxfPyrcEwEEwhPHr/qzDAKBQCAQCAQCgUAgPFJQnEocEAgEAoFAIBAITwrkwBMIEnQW0ndxnvRD+EUnP/8vQBIHBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEO4Z/wdDk+ukOKUtOAAAAABJRU5ErkJggg==" alt="QuickBooks" style="width: 120px; height: 120px; margin-bottom: 20px; border-radius: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px;">QuickBooks</h3>
+        <p style="color: #666;            ">Streamline your accounting and inventory management</p>
+    </div>
+    
+    <div class="integration-card" data-aos="zoom-in" data-aos-delay="300" style="            box-shadow: 0 5px 15px rgba(0,0,0,0.05);text-align: center; padding: 30px; transition: transform 0.3s;">
+        <img src="data:image/png;base64,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" alt="Amazon" style="width: 120px; height: 120px; margin-bottom: 20px; border-radius: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Amazon</h3>
+        <p style="color: #666;">Manage your Amazon marketplace inventory</p>
+    </div>
+    
+    <div class="integration-card" data-aos="zoom-in" data-aos-delay="400" style="            box-shadow: 0 5px 15px rgba(1, 0, 0, 0.05);text-align: center; padding: 30px; transition: transform 0.3s;">
+        <img src="data:image/jpeg;base64,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" alt="WooCommerce" style="width: 120px; height: 120px; margin-bottom: 20px; border-radius: 15px;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 10px;">WooCommerce</h3>
+        <p style="color: #666;             box-shadow: 0 5px 15px rgba(0, 0, 0,0);">Integrate with your WooCommerce store</p>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 60px;" data-aos="fade-up">
+    <a href="#" class="btn btn-primary" style="display: inline-block;">Back to top</a>
+</div>
+</div>
+</section>
+
+<!-- Initialize AOS -->
+<script>
+// Menu Toggle
+document.querySelector('.menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });    
+document.addEventListener('DOMContentLoaded', function() {
+AOS.init({
+    duration: 800,
+    offset: 100,
+    once: true
+});
+});
+</script>
+</body>
+</html>
+{% endblock %}
