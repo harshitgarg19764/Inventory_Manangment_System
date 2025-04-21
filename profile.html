@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Profile Card Styling */
+        .profile-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6789 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: shimmer 8s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .profile-header h1 {
+            margin-bottom: 5px;
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            animation: pulse 5s infinite alternate;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            top: 0;
+            left: 0;
+        }
+        
+        .profile-content {
+            padding: 30px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-info {
+            margin-bottom: 25px;
+        }
+        
+        .profile-info h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .profile-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #3498db;
+            animation: expandWidth 0.8s ease-out forwards;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+        
+        .profile-detail {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        
+        .profile-detail:hover {
+            transform: translateX(5px);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .profile-label {
+            font-weight: bold;
+            width: 120px;
+            color: #555;
+        }
+        
+        .profile-value {
+            flex: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 0 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(to right, #2980b9, #3498db);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            background: linear-gradient(to right, #2c3e50, #4a6789);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-brand::before {
+            content: '📦';
+            margin-right: 8px;
+            font-size: 1.3rem;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #3498db;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        /* Flash messages */
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .flash-message {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .flash-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 5px solid #17a2b8;
+        }
+        
+        .flash-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .flash-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        /* Admin Email List */
+        .admin-section {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out 0.3s both;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .admin-header h2 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-header h2::before {
+            content: '🔒';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .admin-content {
+            padding: 20px;
+        }
+        
+        .email-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        
+        .email-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .email-item:last-child {
+            border-bottom: none;
+        }
+        
+        .email-item:hover {
+            background-color: #f9f9f9;
+            transform: translateX(5px);
+        }
+        
+        .email-item::before {
+            content: '📧';
+            margin-right: 10px;
+            opacity: 0.7;
+        }
+        
+        .email-name {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #2c3e50;
+        }
+        
+        .email-address {
+            color: #3498db;
+            flex: 1;
+        }
+        
+        .email-role {
+            background-color: #eee;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+        .email-role.admin {
+            background-color: #ffd700;
+            color: #333;
+        }
+        
+        .search-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1rem;
+        }
+        
+        .no-access-message {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .profile-detail {
+                flex-direction: column;
+            }
+            
+            .profile-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .nav-links .nav-link {
+                padding: 8px 10px;
+                margin-left: 10px;
+            }
+            
+            .email-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .email-role {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-container">
+        <nav class="nav">
+            <a href="{{ url_for('home') }}" class="nav-brand">Stockaly</a>
+            <div class="nav-links">
+                {% if role=="user" %}
+                <div class="nav-links">
+                <a href="{{ url_for('index' ) }}" class="nav-link">Dashboard</a>
+                </div>
+                {% else %}
+                <div class="nav-links">
+                <a href="{{ url_for('admin' ) }}" class="nav-link">Dashboard</a>
+                </div>
+                {% endif %}
+                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    {{ user.username[0] | upper }}
+                </div>
+                <h1>{{ user.username }}</h1>
+                <p>{{ "Administrator" if user.role == "admin" else "Regular User" }}</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-info">
+                    <h2>User Information</h2>
+                    <div class="profile-detail">
+                        <div class="profile-label">Username:</div>
+                        <div class="profile-value">{{ user.username }}</div>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="profile-label">Email:</div>
+                        <div class="profile-value">{{ user.email }}</div>
+                    </div>
+                    <div class="profile-detail">
+                        <div class="profile-label">Role:</div>
+                        <div class="profile-value">{{ user.role }}</div>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    {% if role=="user" %}
+                <div class="nav-links">
+                <a href="{{ url_for('index' ) }}" class="btn">Back to Inventory</a>
+                </div>
+                {% else %}
+                <div class="nav-links">
+                <a href="{{ url_for('admin' ) }}" class="btn">Back to Inventory</a>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Add some simple animations when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger the animation of profile details
+            const details = document.querySelectorAll('.profile-detail');
+            details.forEach((detail, index) => {
+                detail.style.animation = `fadeInUp 0.5s ease-out ${0.3 + (index * 0.1)}s both`;
+            });
+            
+            // Add a subtle hover effect to the navigation bar
+            const navContainer = document.querySelector('.nav-container');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 10) {
+                    navContainer.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+                } else {
+                    navContainer.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
