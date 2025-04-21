@@ -1,0 +1,726 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Stockaly Inventory Management System</title>
+    <style>
+        :root {
+            /* Modern Color Palette */
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Light Theme */
+            --background-color: var(--gray-100);
+            --card-bg: white;
+            --text-color: var(--gray-800);
+            --border-color: var(--gray-200);
+            --input-bg: white;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        
+        .navbar{
+            padding: 1rem 2rem;
+        }
+        footer{
+            padding: 80px 0px 30px;
+            text-align: center;
+        }
+        .dark-mode {
+            --background-color: var(--gray-900);
+            --card-bg: var(--gray-800);
+            --text-color: var(--gray-100);
+            --border-color: var(--gray-700);
+            --input-bg: var(--gray-700);
+            --shadow-sm: 0 1px 2px 0 rgb(255 255 255 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(255 255 255 / 0.1);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .header-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .inventory-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .inventory-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.875rem;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .inventory-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .inventory-table th:first-child {
+            border-top-left-radius: 0.5rem;
+        }
+
+        .inventory-table th:last-child {
+            border-top-right-radius: 0.5rem;
+        }
+
+        .inventory-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+
+        .inventory-table tr:hover td {
+            background-color: var(--input-bg);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .flash-message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .flash-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .flash-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .sort-select {
+            min-width: 200px;
+        }
+
+        /* Detail View Styles */
+        .detail-card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            min-width: 150px;
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        /* Loading Animation */
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2rem;
+            height: 2rem;
+            margin: -1rem 0 0 -1rem;
+            border: 3px solid var(--primary-color);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-1rem);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .inventory-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-filters {
+                flex-direction: column;
+            }
+        }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+                    .hero {
+                        flex-direction: column;
+                        text-align: center;
+                        padding: 2rem;
+                        padding-top: 3rem;
+                    }
+        
+                    .hero-title {
+                        font-size: 2.5rem;
+                    }
+        
+                    .features {
+                        padding: 2rem;
+                    }
+                }
+        
+                @media (max-width: 768px) {
+                    .nav-links {
+                        display: none;
+                    }
+        
+                    .menu-toggle {
+                        display: block;
+                    }
+        
+                    .menu-toggle.active + .nav-links {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        padding: 1rem;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+        
+                    .hero-image img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+        
+                @media (max-width: 480px) {
+                    .hero-title {
+                        font-size: 2rem;
+                    }
+        
+                    .hero-subtitle {
+                        font-size: 1rem;
+                    }
+        
+                    .cta-button {
+                        width: 100%;
+                    }
+                }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="dashboard-header">
+            <h1 class="header-title">
+                <i class="fas fa-box-open"></i>
+                Stockaly Inventory
+            </h1>
+            <div class="header-actions">
+                <button onclick="window.location.href='/export'" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Export CSV
+                </button>
+                <button onclick="toggleTheme()" class="btn btn-primary">
+                    <i class="fas fa-moon"></i> Toggle Theme
+                </button>
+            </div>
+        </header>
+
+        {% if mode == 'index' %}
+            <div class="inventory-card">
+                <form action="/add" method="POST" class="inventory-form" id="addItemForm">
+                    <div class="form-group">
+                        <label for="item_name">Item Name</label>
+                        <input type="text" id="item_name" name="item_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item_number">Item Number</label>
+                        <input type="text" id="item_number" name="item_number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" class="form-control" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" name="price" class="form-control" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="inventory-card">
+                
+                    <form action="/index" method="GET" class="search-filters">
+                        <input type="text" name="search" class="form-control search-input" 
+                               placeholder="Search items..." value="{{ request.args.get('search', '') }}">
+                        <select name="sort_by" class="form-control sort-select" onchange="this.form.submit()">
+                            <option value="name" {% if request.args.get('sort_by') == 'name' %}selected{% endif %}>Sort by Name</option>
+                            <option value="price" {% if request.args.get('sort_by') == 'price' %}selected{% endif %}>Sort by Price</option>
+                            <option value="quantity" {% if request.args.get('sort_by') == 'quantity' %}selected{% endif %}>Sort by Quantity</option>
+                            <option value="date" {% if request.args.get('sort_by') == 'date' %}selected{% endif %}>Sort by Date</option>
+                        </select>
+                    </form>
+                
+
+                <div class="table-container">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Date Added</th>
+                                <th>Item Name</th>
+                                <th>Item Number</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Value</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                            <tr>
+                                <td>{{ item.date_added.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ item.item_name }}</td>
+                                <td>{{ item.item_number }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>₹{{ '%.2f' | format(item.price) }}</td>
+                                <td>₹{{ '%.2f' | format(item.quantity * item.price) }}</td>
+                                <td>{{ item.last_changed.strftime('%Y-%m-%d') if item.last_changed else 'N/A' }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('view_item', id=item.id) }}" class="btn btn-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="/edit/{{ item.id }}" class="btn btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ url_for('delete_item', id=item.id) }}" method="POST" style="display: inline;">
+                                            <button type="submit" onclick="return confirmDelete('{{ item.item_name }}')" 
+                                                    class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if mode == 'edit' %}
+            <div class="inventory-card">
+                <h2 class="section-title">Edit Item</h2>
+                <form action="/edit/{{ item.id }}" method="POST" class="inventory-form">
+                    <div class="form-group">
+                        <label for="date_added">Date Added</label>
+                        <input type="date" name="date_added" class="form-control" 
+                               value="{{ item.date_added.strftime('%Y-%m-%d') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item_name">Item Name</label>
+                        <input type="text" name="item_name" class="form-control" 
+                               value="{{ item.item_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item_number">Item Number</label>
+                        <input type="text" name="item_number" class="form-control" 
+                               value="{{ item.item_number }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="edit_quantity" name="quantity" class="form-control"
+                               value="{{ item.quantity }}" min="0" required 
+                               onchange="calculateTotal(this, document.getElementById('edit_price'), document.getElementById('total_value'))">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price (₹)</label>
+                        <input type="number" id="edit_price" name="price" class="form-control"
+                               value="{{ item.price }}" min="0" step="0.01" required
+                               onchange="calculateTotal(document.getElementById('edit_quantity'), this, document.getElementById('total_value'))">
+                    </div>
+                    <div class="form-group">
+                        <label for="total_value">Total Value</label>
+                        <span id="total_value" class="total-value">₹{{ '%.2f' | format(item.quantity * item.price) }}</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Item
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-danger">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if mode == 'view' %}
+            <div class="detail-card">
+                <h2 class="section-title">Item Details</h2>
+                <div class="detail-content">
+                    <div class="detail-row">
+                        <span class="detail-label">Date Added:</span>
+                        <span class="detail-value">{{ item.date_added.strftime('%Y-%m-%d') }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Item Name:</span>
+                        <span class="detail-value">{{ item.item_name }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Item Number:</span>
+                        <span class="detail-value">{{ item.item_number }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Quantity:</span>
+                        <span class="detail-value">{{ item.quantity }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Price:</span>
+                        <span class="detail-value">₹{{ '%.2f' | format(item.price) }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Value:</span>
+                        <span class="detail-value">₹{{ '%.2f' | format(item.quantity * item.price) }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Last Updated:</span>
+                        <span class="detail-value">{{ item.last_changed.strftime('%Y-%m-%d') if item.last_changed else 'N/A' }}</span>
+                    </div>
+                </div>
+                <div class="detail-actions">
+                    <a href="/edit/{{ item.id }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="/inventory" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Inventory
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Enhanced Theme Toggle
+        const themeManager = {
+            init() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark-mode');
+                    this.updateThemeIcon();
+                }
+            },
+
+            toggle() {
+                document.documentElement.classList.toggle('dark-mode');
+                localStorage.setItem('theme', 
+                    document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light'
+                );
+                this.updateThemeIcon();
+            },
+
+            updateThemeIcon() {
+                const themeIcon = document.querySelector('button[onclick="toggleTheme()"] i');
+                if (themeIcon) {
+                    themeIcon.className = document.documentElement.classList.contains('dark-mode') 
+                        ? 'fas fa-sun' 
+                        : 'fas fa-moon';
+                }
+            }
+        };
+
+        // Enhanced Form Validation
+        const formValidator = {
+            init() {
+                document.querySelectorAll('form').forEach(form => {
+                    form.addEventListener('submit', (e) => this.validateForm(e, form));
+                    this.setupLiveValidation(form);
+                });
+            },
+
+            validateForm(event, form) {
+                let isValid = true;
+                form.querySelectorAll('input[required]').forEach(input => {
+                    if (!this.validateInput(input)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                } else {
+                    form.classList.add('loading');
+                }
+            },
+
+            validateInput(input) {
+                const value = input.value.trim();
+                const isValid = value !== '' && 
+                    (input.type !== 'number' || parseFloat(value) >= 0);
+
+                this.toggleError(input, isValid);
+                return isValid;
+            },
+
+            setupLiveValidation(form) {
+                form.querySelectorAll('input').forEach(input => {
+                    input.addEventListener('input', () => this.validateInput(input));
+                });
+            },
+
+            toggleError(input, isValid) {
+                input.classList.toggle('is-invalid', !isValid);
+                const errorDiv = input.nextElementSibling;
+                if (!isValid && (!errorDiv || !errorDiv.classList.contains('error-message'))) {
+                    const message = document.createElement('div');
+                    message.className = 'error-message';
+                    message.textContent = input.type === 'number' 
+                        ? 'Please enter a valid non-negative number' 
+                        : 'This field is required';
+                    input.parentNode.insertBefore(message, input.nextSibling);
+                } else if (isValid && errorDiv && errorDiv.classList.contains('error-message')) {
+                    errorDiv.remove();
+                }
+            }
+        };
+
+        // Enhanced Total Calculator
+        const totalCalculator = {
+            calculate(quantityInput, priceInput, totalSpan) {
+                const quantity = parseFloat(quantityInput.value) || 0;
+                const price = parseFloat(priceInput.value) || 0;
+                const total = (quantity * price).toFixed(2);
+                
+                totalSpan.textContent = `$${total}`;
+                totalSpan.classList.add('updated');
+                setTimeout(() => totalSpan.classList.remove('updated'), 300);
+            }
+        };
+
+        // Delete Confirmation
+        function confirmDelete(itemName) {
+            return new Promise((resolve) => {
+                const confirmed = confirm(`Are you sure you want to delete "${itemName}"?`);
+                if (confirmed) {
+                    const button = event.target.closest('button');
+                    button.classList.add('loading');
+                }
+                resolve(confirmed);
+            });
+        }
+
+        // Initialize all features
+        document.addEventListener('DOMContentLoaded', () => {
+            themeManager.init();
+            formValidator.init();
+            
+            // Setup search debouncing
+            const searchInput = document.querySelector('input[name="search"]');
+            if (searchInput) {
+                let timeout;
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        searchInput.closest('form')?.submit();
+                    }, 500);
+                });
+            }
+        });
+
+        // Expose functions for inline handlers
+        window.toggleTheme = () => themeManager.toggle();
+        window.calculateTotal = (q, p, t) => totalCalculator.calculate(q, p, t);
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+        });    
+document.addEventListener('DOMContentLoaded', function() {
+AOS.init({
+    duration: 800,
+    offset: 100,
+    once: true
+});
+});
+    </script>
+</body>
+</html>
+{% endblock %}
