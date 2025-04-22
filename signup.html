@@ -1,0 +1,390 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stockaly Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .registration-container {
+            min-height: 100vh;
+        }
+
+        .carousel-item {
+            border-radius: 1rem;
+            padding: 2rem;
+            min-height: 700px;
+        }
+
+        .carousel-caption {
+            position: relative;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1.rem;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-control,
+        .form-select {
+            padding: 0.4rem 1rem 0.4rem 2.5rem; 
+            border: 1.5px solid #e0e0e0;
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            height: 35px; 
+            line-height: 1; 
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #4285f4;
+            box-shadow: 0 0 0 0.2rem rgba(255, 68, 68, 0.1);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            z-index: 10;
+        }
+
+        .phone-input .input-icon {
+            left: 85px;
+        }
+
+        .phone-select {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-right: none;
+            padding-left: 1rem;
+            max-width: 90px;
+            height: 35px; 
+        }
+
+        .phone-input input {
+            border-left: none;
+            padding-left: 2rem;
+        }
+        .create-account-btn {
+            background-color: #4285f4;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            height: 38px; 
+        }
+        .create-account-btn:hover {
+            background-color: #4285f4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.2);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid #e0e0e0;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #4285f4;
+        }
+
+        .social-btn i {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .form-check-input:checked {
+            background-color: #4285f4;
+            border-color: #4285f4;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+            color: #666;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .navbar {
+            padding: 1rem 2rem;
+        }
+
+        footer {
+            padding: 60px 0px 20px;
+            text-align: center;
+        }
+
+        .login-link {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link:hover {
+            color: #4285f4;
+            text-decoration: underline;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem !important;
+        }
+        .accountstock{
+            margin-top: -5px;
+        }
+        
+
+        .carousel-item img {
+            max-height: 400px;
+            width: auto;
+            border-radius: 1rem;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+                    .nav-links {
+                        display: none;
+                    }
+        
+                    .menu-toggle {
+                        display: block;
+                    }
+        
+                    .menu-toggle.active + .nav-links {
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        padding: 1rem;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+        
+                    .hero-image img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+    </style>
+</head>
+
+<body>
+    <div class="registration-container">
+        <div class="container">
+            <div class="row align-items-center justify-content-center min-vh-100">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="text-center">
+                                    <img src="https://t3.ftcdn.net/jpg/09/32/20/14/360_F_932201408_FCw5Btz8vygARu4wzwFuhzTBqvNjsO33.jpg" alt="Inventory Management" class="img-fluid mb-4">
+                                    <div class="carousel-caption">
+                                        <h3>"With Zoho Inventory, you can actually organize your business."</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="text-center">
+                                    <img src="https://t3.ftcdn.net/jpg/09/32/20/14/360_F_932201408_FCw5Btz8vygARu4wzwFuhzTBqvNjsO33.jpg" alt="Inventory Tracking" class="img-fluid mb-4">
+                                    <div class="carousel-caption">
+                                        <h3>"Streamline your inventory management with ease."</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="text-center">
+                                    <img src="https://t3.ftcdn.net/jpg/09/32/20/14/360_F_932201408_FCw5Btz8vygARu4wzwFuhzTBqvNjsO33.jpg" alt="Business Management" class="img-fluid mb-4">
+                                    <div class="carousel-caption">
+                                        <h3>"The perfect solution for growing businesses."</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-6" >
+                    <div class="form-container" style="height: 620px; margin-bottom: 50PX;">
+                        <div class="text-center mb-4">
+                            <img src="../static/images/stockaly_logo-removebg-preview.png" alt="Zoho Inventory" height="45px" width="65px" class="img-fluid mb-3">
+                            <h2 class="fw-bold">Let's get started</h2>
+                        </div>
+
+                        <form action="/register" method="post">
+                            <div class="mb-3 input-group">
+                                <i class="bi bi-building input-icon"></i>
+                                <input type="text" class="form-control" name="username" placeholder="Company Name" required>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <i class="bi bi-envelope input-icon"></i>
+                                <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="mb-3 input-group phone-input">
+                                <select class="form-select phone-select">
+                                    <option value="+1">+1</option>
+                                    <option value="+44">+44</option>
+                                    <option value="+91" selected>+91</option>
+                                    <option value="+61">+61</option>
+                                    <option value="+86">+86</option>
+                                </select>
+                                <i class="bi bi-phone input-icon" ></i>
+                                <input type="tel" id="phone" class="form-control" name="phone" placeholder="Phone number" required>
+                            </div>
+                            <div class="mb-3 input-group">
+                                <i class="bi bi-lock input-icon"></i>
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col input-group">
+                                    <i class="bi bi-geo-alt input-icon" style="padding: 3px;"></i>
+                                    <select class="form-select" id="country">
+                                        <option value="US">United States</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="IN" selected>India</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="CA">Canada</option>
+                                    </select>
+                                </div>
+                                <div class="col input-group">
+                                    <i class="bi bi-pin-map input-icon"style="padding: 3px;"></i>
+                                    <select class="form-select" id="state">
+                                        <option value="Punjab" selected>Punjab</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" class="login-link">Terms of Service</a> and <a href="#" class="login-link">Privacy Policy</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-danger create-account-btn w-100">
+                                Create your account <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </form>
+
+                        <div class="divider">
+                            <span>or login using</span>
+                        </div>
+
+                        <div class="social-login">
+                            <button class="social-btn">
+                                <i class="bi bi-google"></i>
+                            </button>
+                            <button class="social-btn">
+                                <i class="bi bi-facebook"></i>
+                            </button>
+                            <button class="social-btn">
+                                <i class="bi bi-linkedin"></i>
+                            </button>
+                            <button class="social-btn">
+                                <i class="bi bi-twitter-x"></i>
+                            </button>
+                            <button class="social-btn">
+                                <i class="bi bi-microsoft"></i>
+                            </button>
+                        </div>
+                        <p class="text-center mt-4" class="accountstock"  >
+                            Already have a Stockaly account? <a href="{{url_for('loginFunction')}}" class="login-link">Log in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+    // Menu Toggle
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+                this.classList.toggle('active');
+            });    
+    document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+        duration: 800,
+        offset: 100,
+        once: true
+    });
+    });
+    </script>
+
+</html>
+{% endblock %}
